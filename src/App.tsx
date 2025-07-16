@@ -76,7 +76,7 @@ function App() {
     return board.map((cell, index) => cell === null ? index : -1).filter(index => index !== -1)
   }
 
-  const minimax = (board: Player[], depth: number, isMaximizing: boolean, alpha: number = -Infinity, beta: number = Infinity): number => {
+  const minimax = useCallback((board: Player[], depth: number, isMaximizing: boolean, alpha: number = -Infinity, beta: number = Infinity): number => {
     const { winner } = checkWinner(board)
     
     if (winner === 'O') return 10 - depth
@@ -108,7 +108,7 @@ function App() {
       }
       return minEval
     }
-  }
+  }, [])
 
   const getBestMove = useCallback((board: Player[], difficulty: Difficulty): number => {
     const availableMoves = getAvailableMoves(board)
